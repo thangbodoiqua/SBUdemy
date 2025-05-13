@@ -1,4 +1,4 @@
-package com.example.SBUdemy.util;
+package com.example.SBUdemy.SpringCore.Common;
 
 import org.springframework.stereotype.Component;
 
