@@ -14,8 +14,8 @@ public class FunRestController {
     private String teamName;
 
     @GetMapping("/")
-    public String sayHello(){
-        return "Hello World " + coachName + ' ' + teamName;
+    public String index(){
+        return "index";
     }
     @GetMapping("/workout")
     public String work(){
