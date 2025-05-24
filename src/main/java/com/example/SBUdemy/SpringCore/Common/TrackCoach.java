@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class TrackCoach {
     public TrackCoach() {
-        System.out.println("In Constructor: " + getClass().getSimpleName());
     }
     public String getDailyWorkout(){
         String content = "TrackCoach";
