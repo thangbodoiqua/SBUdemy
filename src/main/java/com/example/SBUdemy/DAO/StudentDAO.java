@@ -3,4 +3,5 @@ import com.example.SBUdemy.entity.Student;
 
 public interface StudentDAO {
     void save(Student theStudent);
+    Student findById(Integer theId);
 }

@@ -18,8 +18,15 @@ public class SbUdemyApplication {
 	@Bean
 	public CommandLineRunner commandLineRunner(StudentDAO studentDAO) {
 		return runner -> {
-			createMultipleStudent(studentDAO);
+			readStudent(studentDAO);
 		};
+	}
+
+	private void readStudent(StudentDAO studentDAO) {
+		System.out.println("Finding Student: ");
+		Student student = studentDAO.findById(1);
+		System.out.println("Student found: " + student.toString());
+
 	}
 
 	private void createStudent(StudentDAO studentDAO) {
