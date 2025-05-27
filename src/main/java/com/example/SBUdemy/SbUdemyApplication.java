@@ -20,9 +20,16 @@ public class SbUdemyApplication {
 	@Bean
 	public CommandLineRunner commandLineRunner(StudentDAO studentDAO) {
 		return runner -> {
-			queryForStudentsByLastName(studentDAO);
+			updateStudent(studentDAO);
 		};
 	}
+
+	private void updateStudent(StudentDAO StudentDAO) {
+		Student student = StudentDAO.findById(1);
+		student.setFirstName("John");
+		StudentDAO.update(student);
+	}
+
 	private void queryForStudentsByLastName(StudentDAO StudentDAO) {
 		List<Student> students = StudentDAO.findByLastName("Dinh");
 		for (Student student : students) {
