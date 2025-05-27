@@ -7,6 +7,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.util.List;
+
 
 @SpringBootApplication
 public class SbUdemyApplication {
@@ -18,8 +20,21 @@ public class SbUdemyApplication {
 	@Bean
 	public CommandLineRunner commandLineRunner(StudentDAO studentDAO) {
 		return runner -> {
-			readStudent(studentDAO);
+			queryForStudentsByLastName(studentDAO);
 		};
+	}
+	private void queryForStudentsByLastName(StudentDAO StudentDAO) {
+		List<Student> students = StudentDAO.findByLastName("Dinh");
+		for (Student student : students) {
+			System.out.println(student.toString());
+		}
+	}
+
+	private void queryForStudents(StudentDAO StudentDAO) {
+		List<Student> students = StudentDAO.findAll();
+		for (Student student : students) {
+			System.out.println(student.toString());
+		}
 	}
 
 	private void readStudent(StudentDAO studentDAO) {
