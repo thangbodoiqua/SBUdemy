@@ -20,8 +20,14 @@ public class SbUdemyApplication {
 	@Bean
 	public CommandLineRunner commandLineRunner(StudentDAO studentDAO) {
 		return runner -> {
-			updateStudent(studentDAO);
+			deleteAllStudents(studentDAO);
 		};
+	}
+	private void deleteAllStudents(StudentDAO StudentDAO) {
+		StudentDAO.deleteAll();
+	}
+	private void deleteStudent(StudentDAO StudentDAO) {
+		StudentDAO.delete(1);
 	}
 
 	private void updateStudent(StudentDAO StudentDAO) {
