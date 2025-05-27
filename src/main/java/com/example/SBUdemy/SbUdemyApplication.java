@@ -5,10 +5,12 @@ import com.example.SBUdemy.entity.Student;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 
 import java.util.List;
 
+@EntityScan(basePackages = "com.example.SBUdemy.entity")
 
 @SpringBootApplication
 public class SbUdemyApplication {
@@ -20,7 +22,7 @@ public class SbUdemyApplication {
 	@Bean
 	public CommandLineRunner commandLineRunner(StudentDAO studentDAO) {
 		return runner -> {
-			deleteAllStudents(studentDAO);
+			createMultipleStudent(studentDAO);
 		};
 	}
 	private void deleteAllStudents(StudentDAO StudentDAO) {
