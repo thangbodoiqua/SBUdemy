@@ -8,11 +8,11 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 @Repository
-public class EmployeeDAOImp implements EmployeeDAO {
+public class EmployeeDAOImpl implements EmployeeDAO {
     private EntityManager entityManager;
 
     @Autowired
-    public EmployeeDAOImp(EntityManager entityManager) {
+    public EmployeeDAOImpl(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
