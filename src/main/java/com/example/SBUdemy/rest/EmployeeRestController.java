@@ -1,6 +1,5 @@
 package com.example.SBUdemy.rest;
 
-import com.example.SBUdemy.DAO.EmployeeDAO;
 import com.example.SBUdemy.entity.Employee;
 import com.example.SBUdemy.service.EmployeeService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -15,7 +14,6 @@ import java.util.Map;
 @RequestMapping("/api")
 
 public class EmployeeRestController {
-
     private EmployeeService employeeService;
     private ObjectMapper objectMapper;
     @Autowired
@@ -36,15 +34,22 @@ public class EmployeeRestController {
         }
         return employee;
     }
+
     @PostMapping("/employees")
     public Employee addEmployee(@RequestBody Employee theEmployee){
         theEmployee.setId(0);
         Employee dbEmployee = employeeService.save(theEmployee);
         return dbEmployee;
     }
+
     @DeleteMapping("employees/{employeeId}")
-    public void deleteEmployee(@PathVariable int employeeId){
+    public String deleteEmployee(@PathVariable int employeeId){
+        Employee tempEmployee = employeeService.findById(employeeId);
+        if (tempEmployee == null) {
+            throw new RuntimeException("Employee Id not found - " + employeeId);
+        }
         employeeService.deleteById(employeeId);
+        return "Deleted employee with idL " + employeeId;
     }
 
 
@@ -60,8 +65,7 @@ public class EmployeeRestController {
         Employee tempEmployee = employeeService.findById(employeeId);
 
         if(tempEmployee == null) {
-            throw new RuntimeException("Employee id not found - " + employeeId){
-            };
+            throw new RuntimeException("Employee id not found - " + employeeId);
         }
 
         if(patchPayload.containsKey("id")){
