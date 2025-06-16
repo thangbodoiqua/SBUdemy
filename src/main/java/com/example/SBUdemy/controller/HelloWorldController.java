@@ -3,12 +3,11 @@ package com.example.SBUdemy.controller;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class HelloWorldController {
-    @RequestMapping("/showForm")
+    @GetMapping("/showForm")
     public String showForm() {
         return "helloworld-form";
     }
@@ -25,7 +24,7 @@ public class HelloWorldController {
 
         return "helloworld";
     }
-    @RequestMapping("/processFormVersionThree")
+    @PostMapping("/processFormVersionThree")
     public String processFormVersion3(@RequestParam("studentName") String theName,
                                       Model model) {
         theName = theName.toUpperCase();
