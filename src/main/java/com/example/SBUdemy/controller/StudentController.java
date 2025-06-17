@@ -22,6 +22,7 @@ public class StudentController {
         theModel.addAttribute("student", theStudent);
         theModel.addAttribute("countries", countries);
         theModel.addAttribute("languages", languages);
+
         return "student-form";
     }
     @PostMapping("/processStudentForm")
