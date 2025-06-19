@@ -1,5 +1,6 @@
 package com.example.SBUdemy;
 
+import com.example.SBUdemy.validation.CourseCode;
 import jakarta.validation.constraints.*;
 
 public class Customer {
@@ -17,6 +18,8 @@ public class Customer {
 
     @Pattern(regexp = "^[a-zA-z0-9]{5}", message = "only 5 chars/digits")
     private String postalCode;
+
+    private String courseCode;
 
     public String getFirstName() {
         return firstName;
@@ -48,5 +51,13 @@ public class Customer {
 
     public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
+    }
+    @CourseCode
+    public String getCourseCode() {
+        return courseCode;
+    }
+
+    public void setCourseCode(String courseCode) {
+        this.courseCode = courseCode;
     }
 }
