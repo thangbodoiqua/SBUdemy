@@ -12,5 +12,6 @@ import java.util.List;
 public class SbUdemyApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SbUdemyApplication.class, args);
+		System.out.println("http://localhost:2025");
 	}
 }
