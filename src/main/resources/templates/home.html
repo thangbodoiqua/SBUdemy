@@ -8,18 +8,21 @@
   <h2>Home Page</h2>
   <hr></hr>
   <p>Welcome to the page! </p>
-  <hr></hr>
-    <p>
-      <a th:href="@{/leaders}">Leadership Meeting</a> (Only for Manager)
-    </p>
-    <p>
-      <a th:href="@{/systems}">System Meeting</a> (Only for Admin)
-    </p>
-  <hr></hr>
+
   User: <span sec:authentication="principal.username"></span>
   <br></br>
   Role(s): <span sec:authentication="principal.authorities"></span>
-  <hr></hr>
+  <div sec:authorize="hasRole('MANAGER')">
+    <hr></hr>
+    <p>
+      <a th:href="@{/leaders}">Leadership Meeting</a> (Only for Manager)
+    </p>
+  </div>
+  <div sec:authorize="hasRole('ADMIN')">
+    <p>
+      <a th:href="@{/systems}">System Meeting</a> (Only for Admin)
+    </p>
+  </div>
   <form action="#" th:action="@{/logout}" method="POST">
     <input type="submit" value="logout" />
   </form>
