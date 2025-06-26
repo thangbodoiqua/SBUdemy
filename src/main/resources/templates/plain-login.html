@@ -6,6 +6,10 @@
 </head>
 <body>
     <h3>My Custom Login Page</h3>
+    <div th:if="${param.error}" >
+        <i style="color:red">Invalid username or password</i>
+
+    </div>
     <form action="#" th:action="@{/authenticateTheUser}" method="POST">
         Username: <input type="text" name="username" placeholder="username">
         <br></br>
