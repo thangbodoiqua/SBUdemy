@@ -9,6 +9,13 @@
   <hr></hr>
   <p>Welcome to the page! </p>
   <hr></hr>
+    <p>
+      <a th:href="@{/leaders}">Leadership Meeting</a> (Only for Manager)
+    </p>
+    <p>
+      <a th:href="@{/systems}">System Meeting</a> (Only for Admin)
+    </p>
+  <hr></hr>
   User: <span sec:authentication="principal.username"></span>
   <br></br>
   Role(s): <span sec:authentication="principal.authorities"></span>
