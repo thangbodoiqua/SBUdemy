@@ -10,8 +10,8 @@ import java.util.List;
 
 @SpringBootApplication
 public class SbUdemyApplication {
-	public static void main(String[] args) {
-		SpringApplication.run(SbUdemyApplication.class, args);
-		System.out.println("http://localhost:2025");
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(SbUdemyApplication.class, args);
+        System.out.println("http://localhost:2025");
+    }
 }

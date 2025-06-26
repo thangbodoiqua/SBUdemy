@@ -1,84 +1,59 @@
 package com.example.SBUdemy.security;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import com.example.SBUdemy.service.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 import javax.sql.DataSource;
-import javax.xml.crypto.Data;
 
 @Configuration
 public class DemoSecurityConfig {
-    private static final Logger log = LoggerFactory.getLogger(DemoSecurityConfig.class);
 
+    //bcrypt bean definition
     @Bean
-    public UserDetailsManager userDetailsManager(DataSource dataSource) {
-        JdbcUserDetailsManager jdbcUserDetailsManager = new JdbcUserDetailsManager(dataSource);
-        jdbcUserDetailsManager
-                .setUsersByUsernameQuery("SELECT user_id, pw, active from members where user_id = ?");
-        jdbcUserDetailsManager
-                .setAuthoritiesByUsernameQuery("SELECT user_id, role from roles where user_id = ?");
-
-        return jdbcUserDetailsManager;
+    public BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 
-
-
+    //authenticationProvider bean definition
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
-
-        http.authorizeHttpRequests(configurer -> {
-            configurer
-                    .requestMatchers("/").hasRole("EMPLOYEE")
-                    .requestMatchers("/leaders/**").hasRole("MANAGER")
-                    .requestMatchers("/systems/**").hasRole("ADMIN")
-                    .anyRequest().authenticated();
-        })
-                .formLogin(form -> form
-                        .loginPage("/showMyLoginPage")
-                        .loginProcessingUrl("/authenticateTheUser")
-                        .permitAll()
-                )
-                .logout(logout -> logout
-                        .permitAll()
-                )
-                .exceptionHandling(configurer -> configurer
-                        .accessDeniedPage("/access-denied"));
-
-        return  http.build();
+    public DaoAuthenticationProvider authenticationProvider(UserService userService) {
+        DaoAuthenticationProvider auth = new DaoAuthenticationProvider();
+        auth.setUserDetailsService(userService); //set the custom user details service
+        auth.setPasswordEncoder(passwordEncoder()); //set the password encoder - bcrypt
+        return auth;
     }
 
-    /*    @Bean
-    public InMemoryUserDetailsManager userDetailsManager() {
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-        UserDetails john = User.builder()
-                .username("john")
-                .password("{noop}123")
-                .roles("EMPLOYEE")
-                .build();
+        http.authorizeHttpRequests(configurer ->
+                        configurer
+                                .requestMatchers("/").hasRole("EMPLOYEE")
+                                .requestMatchers("/leaders/**").hasRole("MANAGER")
+                                .requestMatchers("/systems/**").hasRole("ADMIN")
+                                .anyRequest().authenticated()
+                )
+                .formLogin(form ->
+                        form
+                                .loginPage("/showMyLoginPage")
+                                .loginProcessingUrl("/authenticateTheUser")
+                                .permitAll()
+                )
+                .logout(logout -> logout.permitAll()
+                )
+                .exceptionHandling(configurer ->
+                        configurer.accessDeniedPage("/access-denied")
+                );
 
-        UserDetails mary = User.builder()
-                .username("mary")
-                .password("{noop}123")
-                .roles("EMPLOYEE", "MANAGER")
-                .build();
+        return http.build();
+    }
 
-        UserDetails susan = User.builder()
-                .username("susan")
-                .password("{noop}123")
-                .roles("EMPLOYEE", "MANAGER", "ADMIN")
-                .build();
-
-
-
-        return new InMemoryUserDetailsManager(john, mary, susan);
-    }*/
 }
