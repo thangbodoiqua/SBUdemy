@@ -21,9 +21,14 @@ public class SbUdemyApplication {
     public CommandLineRunner commandLinerRunner(AppDAO appDAO) {
 
         return runner -> {
-            findInstructor(appDAO);
+            deleteInstructor(appDAO);
         };
 
+    }
+
+    private void deleteInstructor(AppDAO appDAO) {
+        int theId = 1;
+        appDAO.deleteInstructorById(theId);
     }
 
     private void findInstructor(AppDAO appDAO) {
@@ -39,17 +44,65 @@ public class SbUdemyApplication {
     }
 
     public void createInstructor(AppDAO appDAO) {
-        Instructor tempInstructor = new Instructor("Chad", "Darby", "dluy2406@gmail.com");
+        // 1
+        Instructor instructor1 = new Instructor("Linh", "Nguyen", "linh.nguyen@example.com");
+        InstructorDetail detail1 = new InstructorDetail("LinhTube", "Piano");
+        instructor1.setInstructorDetail(detail1);
+        appDAO.save(instructor1);
 
-        InstructorDetail tempInstructorDetail = new InstructorDetail("fuck", "liongold");
+// 2
+        Instructor instructor2 = new Instructor("Huy", "Tran", "huy.tran@example.com");
+        InstructorDetail detail2 = new InstructorDetail("HuyVlogs", "Chess");
+        instructor2.setInstructorDetail(detail2);
+        appDAO.save(instructor2);
 
-        tempInstructor.setInstructorDetail(tempInstructorDetail);
+// 3
+        Instructor instructor3 = new Instructor("Trang", "Phung", "trang.phung@example.com");
+        InstructorDetail detail3 = new InstructorDetail("TravelWithTrang", "Photography");
+        instructor3.setInstructorDetail(detail3);
+        appDAO.save(instructor3);
 
-        System.out.println("saving instructor: " + tempInstructor);
-        //also save tempInstructorDetail bcz CasecadeType = All
-        appDAO.save(tempInstructor);
+// 4
+        Instructor instructor4 = new Instructor("Minh", "Le", "minh.le@example.com");
+        InstructorDetail detail4 = new InstructorDetail("LeCodes", "Hiking");
+        instructor4.setInstructorDetail(detail4);
+        appDAO.save(instructor4);
 
-        System.out.println("Done!");
+// 5
+        Instructor instructor5 = new Instructor("An", "Vo", "an.vo@example.com");
+        InstructorDetail detail5 = new InstructorDetail("AnCooking", "Baking");
+        instructor5.setInstructorDetail(detail5);
+        appDAO.save(instructor5);
+
+// 6
+        Instructor instructor6 = new Instructor("Hoa", "Pham", "hoa.pham@example.com");
+        InstructorDetail detail6 = new InstructorDetail("HoaArt", "Sketching");
+        instructor6.setInstructorDetail(detail6);
+        appDAO.save(instructor6);
+
+// 7
+        Instructor instructor7 = new Instructor("Quang", "Do", "quang.do@example.com");
+        InstructorDetail detail7 = new InstructorDetail("DoGaming", "Board Games");
+        instructor7.setInstructorDetail(detail7);
+        appDAO.save(instructor7);
+
+// 8
+        Instructor instructor8 = new Instructor("Nga", "Bui", "nga.bui@example.com");
+        InstructorDetail detail8 = new InstructorDetail("NgaFitness", "Yoga");
+        instructor8.setInstructorDetail(detail8);
+        appDAO.save(instructor8);
+
+// 9
+        Instructor instructor9 = new Instructor("Tuan", "Hoang", "tuan.hoang@example.com");
+        InstructorDetail detail9 = new InstructorDetail("TuanTech", "Robotics");
+        instructor9.setInstructorDetail(detail9);
+        appDAO.save(instructor9);
+
+// 10
+        Instructor instructor10 = new Instructor("Mai", "Ngoc", "mai.ngoc@example.com");
+        InstructorDetail detail10 = new InstructorDetail("MaiMusic", "Guitar");
+        instructor10.setInstructorDetail(detail10);
+        appDAO.save(instructor10);
 
     }
 }
