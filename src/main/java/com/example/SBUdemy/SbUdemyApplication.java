@@ -14,4 +14,12 @@ public class SbUdemyApplication {
         SpringApplication.run(SbUdemyApplication.class, args);
         System.out.println("http://localhost:2025");
     }
+    @Bean
+    public CommandLineRunner commandLinerRunner(String[] args) {
+
+        return runner -> {
+            System.out.println("Hello World");
+        };
+
+    }
 }
