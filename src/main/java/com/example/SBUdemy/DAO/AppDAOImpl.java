@@ -1,12 +1,14 @@
 package com.example.SBUdemy.DAO;
 
 import com.example.SBUdemy.entity.Instructor;
+import com.example.SBUdemy.entity.InstructorDetail;
 import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
+
 public class AppDAOImpl implements AppDAO{
     private EntityManager entityManager;
 
@@ -34,5 +36,10 @@ public class AppDAOImpl implements AppDAO{
         Instructor theInstructor = entityManager.find(Instructor.class, theId);
 
         entityManager.remove(theInstructor);
+    }
+
+    @Override
+    public InstructorDetail findInstructorDetailById(int theId) {
+        return entityManager.find(InstructorDetail.class, theId);
     }
 }

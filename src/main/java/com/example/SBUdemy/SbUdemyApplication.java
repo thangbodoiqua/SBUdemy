@@ -21,9 +21,16 @@ public class SbUdemyApplication {
     public CommandLineRunner commandLinerRunner(AppDAO appDAO) {
 
         return runner -> {
-            deleteInstructor(appDAO);
+            findInstructorDetail(appDAO);
         };
 
+    }
+
+    private void findInstructorDetail(AppDAO appDAO) {
+        int theId = 3;
+        InstructorDetail tempInstructorDetail = appDAO.findInstructorDetailById(theId);
+        System.out.println("tempInstructorDetail: " + tempInstructorDetail);
+        System.out.println("tempInstructor" + tempInstructorDetail.getInstructor());
     }
 
     private void deleteInstructor(AppDAO appDAO) {
