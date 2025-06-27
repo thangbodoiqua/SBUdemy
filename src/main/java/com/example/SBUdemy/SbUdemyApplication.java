@@ -27,7 +27,7 @@ public class SbUdemyApplication {
     }
 
     private void deleteInstructorDetail(AppDAO appDAO) {
-        int theId = 2;
+        int theId = 3;
         appDAO.deleteInstructorDetailById((theId));
         System.out.println("Instructor deleted");
     }
