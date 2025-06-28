@@ -1,6 +1,7 @@
 package com.example.SBUdemy;
 
 import com.example.SBUdemy.DAO.AppDAO;
+import com.example.SBUdemy.entity.Course;
 import com.example.SBUdemy.entity.Instructor;
 import com.example.SBUdemy.entity.InstructorDetail;
 import org.springframework.boot.CommandLineRunner;
@@ -8,6 +9,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -21,8 +23,27 @@ public class SbUdemyApplication {
     public CommandLineRunner commandLinerRunner(AppDAO appDAO) {
 
         return runner -> {
-            deleteInstructorDetail(appDAO);
+            createInstructorWithCourses(appDAO);
         };
+
+    }
+    private void createInstructorWithCourses(AppDAO appDAO) {
+        Instructor instructor1 = new Instructor("Linh", "Nguyen", "linh.nguyen@example.com");
+        InstructorDetail detail1 = new InstructorDetail("LinhTube", "Piano");
+        instructor1.setInstructorDetail(detail1);
+
+// 2
+        Instructor instructor2 = new Instructor("Huy", "Tran", "huy.tran@example.com");
+        InstructorDetail detail2 = new InstructorDetail("HuyVlogs", "Chess");
+        instructor2.setInstructorDetail(detail2);
+        Course tempCourse1 = new Course("Air Guitar");
+        Course tempCourse2 = new Course("Masterclass");
+
+
+        instructor1.addCourse(tempCourse1);
+        instructor1.addCourse(tempCourse2);
+        appDAO.save(instructor1);
+        System.out.println("Instructor after add courses: " + instructor1);
 
     }
 
