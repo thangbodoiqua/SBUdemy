@@ -1,9 +1,7 @@
 package com.example.SBUdemy;
 
 import com.example.SBUdemy.DAO.AppDAO;
-import com.example.SBUdemy.entity.Course;
-import com.example.SBUdemy.entity.Instructor;
-import com.example.SBUdemy.entity.InstructorDetail;
+import com.example.SBUdemy.entity.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -23,10 +21,22 @@ public class SbUdemyApplication {
     public CommandLineRunner commandLinerRunner(AppDAO appDAO) {
 
         return runner -> {
-            createInstructorWithCourses(appDAO);
+            findInstructorWithCourses(appDAO);
         };
 
     }
+
+    private void findInstructorWithCourses(AppDAO appDAO) {
+        int theId = 1;
+        System.out.println("Finding instructor id: " + theId);
+
+        Instructor tempInstructor = appDAO.findInstructorById(theId);
+
+        System.out.println("tempInstructor: " + tempInstructor);
+        System.out.println("The associated courses: " + tempInstructor.getCourses());
+        System.out.println("Done!");
+    }
+
     private void createInstructorWithCourses(AppDAO appDAO) {
         Instructor instructor1 = new Instructor("Linh", "Nguyen", "linh.nguyen@example.com");
         InstructorDetail detail1 = new InstructorDetail("LinhTube", "Piano");

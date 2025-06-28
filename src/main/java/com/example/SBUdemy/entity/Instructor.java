@@ -23,7 +23,11 @@ public class Instructor {
 
     @Column(name="email")
     private String email;
-    @OneToMany(mappedBy = "instructor", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
+    @OneToMany(mappedBy = "instructor", fetch = FetchType.EAGER,
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+                    CascadeType.REFRESH, CascadeType.DETACH
+            }
+    )
     private List<Course> courses;
 
     @OneToOne(cascade = CascadeType.ALL)
