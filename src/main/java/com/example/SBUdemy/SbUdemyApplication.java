@@ -21,8 +21,23 @@ public class SbUdemyApplication {
     public CommandLineRunner commandLinerRunner(AppDAO appDAO) {
 
         return runner -> {
-            findCoursesForInstructor(appDAO);
+            findInstructorWithCoursesJoinFetch(appDAO);
         };
+
+    }
+
+    private void findInstructorWithCoursesJoinFetch(AppDAO appDAO) {
+        int theId = 1;
+
+        System.out.println("finding instructor id: " + theId);
+
+        Instructor tempInstructor = appDAO.findInstructorByIdJoinFetch(theId);
+
+        System.out.println("tempInstructor: " + tempInstructor);
+
+        System.out.println("Associated Courses: " + tempInstructor.getCourses());
+
+
 
     }
 
