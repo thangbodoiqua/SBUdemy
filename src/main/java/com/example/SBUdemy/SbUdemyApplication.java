@@ -21,8 +21,42 @@ public class SbUdemyApplication {
     public CommandLineRunner commandLinerRunner(AppDAO appDAO) {
 
         return runner -> {
-            deleteCourse(appDAO);
+            deleteCourseAndReviews(appDAO);
         };
+
+    }
+
+    private void deleteCourseAndReviews(AppDAO appDAO) {
+        int theId = 10;
+        System.out.println("Deleting the course with id: "+ theId);
+        appDAO.deleteCourseById(theId);
+        System.out.println("Deleted");
+    }
+
+    private void retrieveCourseAndReviews(AppDAO appDAO) {
+        System.out.println("Retrieving the course and reviews");
+        int theId = 10;
+        Course tempCourse = appDAO.findCourseAndReviewsByCourseId(theId);
+
+        System.out.println("The course: " + tempCourse);
+        System.out.println("The reviews: "+ tempCourse.getReviews());
+
+    }
+
+    private void createCourseAndReviews(AppDAO appDAO) {
+        Course tempCourse = new Course("Cai loz");
+
+        tempCourse.addReview(new Review("Great Course, Hate it"));
+        tempCourse.addReview(new Review("Shit course, Love it"));
+        tempCourse.addReview(new Review("I dont know"));
+
+        System.out.println("Saving the course: " + tempCourse);
+        System.out.println("The reviews: " + tempCourse.getReviews());
+
+        appDAO.save(tempCourse);
+
+        System.out.println("Done!");
+
 
     }
 
