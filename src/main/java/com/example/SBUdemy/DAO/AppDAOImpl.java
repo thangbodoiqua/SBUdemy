@@ -1,11 +1,15 @@
 package com.example.SBUdemy.DAO;
 
+import com.example.SBUdemy.entity.Course;
 import com.example.SBUdemy.entity.Instructor;
 import com.example.SBUdemy.entity.InstructorDetail;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Repository
 
@@ -50,5 +54,13 @@ public class AppDAOImpl implements AppDAO{
 
         theInstructorDetail.getInstructor().setInstructorDetail(null);
         entityManager.remove(theInstructorDetail);
+    }
+
+    @Override
+    public List<Course> findCoursesByInstructorId(int theId) {
+        TypedQuery<Course> query = entityManager.createQuery("from Course where instructor.id = :data", Course.class);
+        query.setParameter("data", theId);
+        List<Course> courses= query.getResultList();
+        return courses;
     }
 }

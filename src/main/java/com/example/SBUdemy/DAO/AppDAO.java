@@ -1,7 +1,10 @@
 package com.example.SBUdemy.DAO;
 
+import com.example.SBUdemy.entity.Course;
 import com.example.SBUdemy.entity.Instructor;
 import com.example.SBUdemy.entity.InstructorDetail;
+
+import java.util.List;
 
 public interface AppDAO {
     void save(Instructor theInstructor);
@@ -13,4 +16,6 @@ public interface AppDAO {
     InstructorDetail findInstructorDetailById(int theId);
 
     void deleteInstructorDetailById(int theId);
+
+    List<Course> findCoursesByInstructorId(int theId);
 }

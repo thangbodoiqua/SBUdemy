@@ -23,7 +23,7 @@ public class Instructor {
 
     @Column(name="email")
     private String email;
-    @OneToMany(mappedBy = "instructor", fetch = FetchType.EAGER,
+    @OneToMany(mappedBy = "instructor", fetch = FetchType.LAZY,
             cascade = {CascadeType.PERSIST, CascadeType.MERGE,
                     CascadeType.REFRESH, CascadeType.DETACH
             }

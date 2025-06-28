@@ -21,9 +21,25 @@ public class SbUdemyApplication {
     public CommandLineRunner commandLinerRunner(AppDAO appDAO) {
 
         return runner -> {
-            findInstructorWithCourses(appDAO);
+            findCoursesForInstructor(appDAO);
         };
 
+    }
+
+    private void findCoursesForInstructor(AppDAO appDAO) {
+        int theId = 1;
+        System.out.println("Finding instructor id: " + theId);
+
+        Instructor tempInstructor = appDAO.findInstructorById(theId);
+
+        System.out.println("tempInstructor: " + tempInstructor);
+
+        List<Course> courses = appDAO.findCoursesByInstructorId(theId);
+
+        tempInstructor.setCourses(courses);
+        System.out.println("The associated courses: " + tempInstructor.getCourses());
+
+        System.out.println("Done!");
     }
 
     private void findInstructorWithCourses(AppDAO appDAO) {
