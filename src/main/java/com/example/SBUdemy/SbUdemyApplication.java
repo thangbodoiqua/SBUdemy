@@ -21,9 +21,39 @@ public class SbUdemyApplication {
     public CommandLineRunner commandLinerRunner(AppDAO appDAO) {
 
         return runner -> {
-            findInstructorWithCoursesJoinFetch(appDAO);
+            deleteCourse(appDAO);
         };
 
+    }
+
+    private void deleteCourse(AppDAO appDAO) {
+        int theId = 11;
+        System.out.println("Deleting Course with id: " + theId);
+        appDAO.deleteCourseById(theId);
+        System.out.println("Done!");
+    }
+
+    private void updateCourse(AppDAO appDAO) {
+        int theId = 10;
+        System.out.println("Find the Course with id: " + theId);
+        Course tempCourse = appDAO.findCourseById(theId);
+        System.out.println("Update course with id: " + theId);
+        tempCourse.setTitle("No love no life");
+        appDAO.update(tempCourse);
+        System.out.println("Done!");
+
+    }
+
+    private void updateInstructor(AppDAO appDAO) {
+        int theId = 1;
+        System.out.println("Find the instructor with id: " + theId);
+        Instructor tempInstructor = appDAO.findInstructorById(theId);
+
+        System.out.println("Update instructor with id: " + theId);
+        tempInstructor.setLastName("Thang");
+
+        appDAO.update(tempInstructor);
+        System.out.println("Done!");
     }
 
     private void findInstructorWithCoursesJoinFetch(AppDAO appDAO) {
@@ -103,7 +133,9 @@ public class SbUdemyApplication {
 
     private void deleteInstructor(AppDAO appDAO) {
         int theId = 1;
+        System.out.println("deleting instructor with id: " + theId);
         appDAO.deleteInstructorById(theId);
+        System.out.println("Done!");
     }
 
     private void findInstructor(AppDAO appDAO) {
