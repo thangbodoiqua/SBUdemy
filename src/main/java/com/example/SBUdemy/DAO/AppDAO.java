@@ -3,6 +3,7 @@ package com.example.SBUdemy.DAO;
 import com.example.SBUdemy.entity.Course;
 import com.example.SBUdemy.entity.Instructor;
 import com.example.SBUdemy.entity.InstructorDetail;
+import com.example.SBUdemy.entity.Student;
 
 import java.util.List;
 
@@ -32,4 +33,12 @@ public interface AppDAO {
     void save(Course course);
     
     Course findCourseAndReviewsByCourseId(int theId);
+
+    Course findCourseAndStudentsByCourseId(int theId);
+
+    Student findStudentAndCoursesByStudentId(int theId);
+
+    void update(Student tempStudent);
+
+    void deleteStudentById(int theId);
 }

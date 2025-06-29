@@ -21,8 +21,65 @@ public class SbUdemyApplication {
     public CommandLineRunner commandLinerRunner(AppDAO appDAO) {
 
         return runner -> {
-            deleteCourseAndReviews(appDAO);
+            deleteStudent(appDAO);
+
         };
+
+    }
+
+    private void deleteStudent(AppDAO appDAO) {
+        int theId = 1;
+        System.out.println("Deleting student with id: " + theId);
+        appDAO.deleteStudentById(theId);
+        System.out.println("Done!");
+    }
+
+    private void addMoreCoursesForStudents(AppDAO appDAO) {
+        int theId = 2;
+        Student tempStudent = appDAO.findStudentAndCoursesByStudentId(theId);
+
+        Course tempCourse1 = new Course("Rbik'Cube - how to speed cube");
+        Course tempCourse2 = new Course("Atari 2600 - Game Development");
+
+        tempStudent.addCourse(tempCourse1);
+        tempStudent.addCourse(tempCourse2);
+
+        System.out.println("Updating course: " + tempStudent);
+        System.out.println("Courses: " + tempStudent.getCourses());
+        appDAO.update(tempCourse1);
+        System.out.println("Done!");
+
+    }
+
+    private void findStudentAndCourses(AppDAO appDAO) {
+        int theId = 2;
+        Student tempStudent = appDAO.findStudentAndCoursesByStudentId(theId);
+        System.out.println("Loaded Student: " + tempStudent);
+        System.out.println("Courses: " + tempStudent.getCourses());
+    }
+
+    private void findCourseAndStudents(AppDAO appDAO) {
+        int theId = 10;
+        Course tempCourse = appDAO.findCourseAndStudentsByCourseId(theId);
+        System.out.println("Loaded Course: " + tempCourse);
+        System.out.println("Students: " + tempCourse.getStudents());
+        System.out.println("Done!");
+    }
+
+    private void createCoursesAndStudents(AppDAO appDAO) {
+        Course tempCourse = new Course("Pacman - How to score 1 milion points");
+        Student tempStudent1 = new Student("Dinh", "Thang", "dluy2406@gmail.com");
+        Student tempStudent2 = new Student("Ngoc", "Dac", "Dac@gmail.com");
+        tempCourse.addStudent(tempStudent1);
+        tempCourse.addStudent(tempStudent2);
+
+        System.out.println("Saving the course: " + tempCourse);
+        System.out.println("associated students: " + tempCourse.getStudents());
+
+        appDAO.save(tempCourse);
+
+        System.out.println("Done");
+
 
     }
 

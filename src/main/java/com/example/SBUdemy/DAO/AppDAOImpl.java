@@ -3,6 +3,7 @@ package com.example.SBUdemy.DAO;
 import com.example.SBUdemy.entity.Course;
 import com.example.SBUdemy.entity.Instructor;
 import com.example.SBUdemy.entity.InstructorDetail;
+import com.example.SBUdemy.entity.Student;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -133,4 +134,52 @@ public class AppDAOImpl implements AppDAO{
         return course;
     }
 
+    @Override
+    public Course findCourseAndStudentsByCourseId(int theId) {
+        TypedQuery<Course> query = entityManager.createQuery(
+                "Select c from Course c "
+                        + "JOIN FETCH c.students "
+                        + "where c.id = :data", Course.class
+        );
+        query.setParameter("data", theId);
+
+        Course course = query.getSingleResult();
+
+        return course;
+    }
+
+    @Override
+    public Student findStudentAndCoursesByStudentId(int theId) {
+        TypedQuery<Student> query = entityManager.createQuery(
+                "Select s from Student s "
+                        + "JOIN FETCH s.courses "
+                        + "where s.id = :data", Student.class
+        );
+        query.setParameter("data", theId);
+
+        Student student = query.getSingleResult();
+
+        return  student;
+    }
+
+    @Override
+    @Transactional
+    public void update(Student tempStudent) {
+        entityManager.merge(tempStudent);
+    }
+
+    @Override
+    @Transactional
+    public void deleteStudentById(int theId) {
+        Student tempStudent = entityManager.find(Student.class, theId);
+        if(tempStudent != null) {
+            List<Course> courses = tempStudent.getCourses();
+
+            for (Course tempCourse: courses) {
+                tempCourse.getStudents().remove(tempStudent);
+            }
+
+            entityManager.remove(tempStudent);
+        }
+    }
 }
