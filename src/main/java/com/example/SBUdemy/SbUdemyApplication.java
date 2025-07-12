@@ -25,7 +25,7 @@ public class SbUdemyApplication {
 
         theAccountDAO.addAccount();
 
-        theMembershipDAO.addAccount();
+        theMembershipDAO.addMember();
 
     }
 }
