@@ -25,6 +25,13 @@ public class SbUdemyApplication {
         Account myAccount = new Account();
         theAccountDAO.addAccount(myAccount, true);
         theAccountDAO.doWork();
+        theAccountDAO.setName("foobar");
+        theAccountDAO.setServiceCode("silver");
+
+        String name = theAccountDAO.getName();
+        String code= theAccountDAO.getServiceCode();
+
+
         theMembershipDAO.addMember();
         theMembershipDAO.goToSleep();
 

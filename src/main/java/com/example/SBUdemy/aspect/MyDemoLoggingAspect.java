@@ -12,13 +12,19 @@ public class MyDemoLoggingAspect {
     @Pointcut("execution( * com.example.SBUdemy.dao.*.*(..))")
     private void forDAOPackage() {};
 
+    @Pointcut("execution( * com.example.SBUdemy.dao.*.get*(..))")
+    private void getter() {};
+    @Pointcut("execution( * com.example.SBUdemy.dao.*.set*(..))")
+    private void setter() {};
+    @Pointcut("forDAOPackage() && !(getter() || setter())")
+    private void forDAOPackageNoGetterSetter() {};
 //    @Before("execution(public void addAccount())")
-    @Before("forDAOPackage()")
+    @Before("forDAOPackageNoGetterSetter()")
     public void beforeAddAccountAdvice() {
         System.out.println("\n==> Executing @Before advice on method");
     }
 
-    @Before("forDAOPackage()")
+    @Before("forDAOPackageNoGetterSetter()")
     public void performApiAnalytics() {
 
         System.out.println("\n==> Performing API analytics");
