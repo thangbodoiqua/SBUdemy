@@ -23,6 +23,8 @@ public class SbUdemyApplication {
 
     private void demoTheBeforeAdvice(AccountDAO theAccountDAO, MembershipDAO theMembershipDAO) {
         Account myAccount = new Account();
+        myAccount.setName("Madhu");
+        myAccount.setLevel("Platinum");
         theAccountDAO.addAccount(myAccount, true);
         theAccountDAO.doWork();
         theAccountDAO.setName("foobar");
