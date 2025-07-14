@@ -3,6 +3,7 @@ package com.example.SBUdemy.aspect;
 import com.example.SBUdemy.Account;
 import java.util.List;
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.context.annotation.Bean;
@@ -12,7 +13,27 @@ import org.springframework.stereotype.Component;
 @Aspect
 @Component
 @Order(2)
+
 public class MyDemoLoggingAspect {
+    @Around("execution(* com.example.SBUdemy.service.*.getFortune(..))")
+    public Object aroundGetFortune(
+            ProceedingJoinPoint pjp
+    ) throws Throwable {
+        String method = pjp.getSignature().toShortString();
+
+        System.out.println("\n==> Executing @After (finally) on method: " + method);
+
+        long begin = System.currentTimeMillis();
+
+        Object result = pjp.proceed();
+
+        long end = System.currentTimeMillis();
+        long duration = end - begin;
+        System.out.println("\n==> Duration: " + duration);
+
+        return result;
+    }
+
     @After("execution(* com.example.SBUdemy.dao.AccountDAO.findAccounts(..))")
     public void afterFinallyAccountsAdvice(JoinPoint theJoinPoint) {
         String method = theJoinPoint.getSignature().toShortString();

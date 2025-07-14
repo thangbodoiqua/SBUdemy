@@ -2,6 +2,7 @@ package com.example.SBUdemy;
 
 import com.example.SBUdemy.dao.AccountDAO;
 import com.example.SBUdemy.dao.MembershipDAO;
+import com.example.SBUdemy.service.TrafficFortuneService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,12 +18,23 @@ public class SbUdemyApplication {
         System.out.println("http://localhost:2025");
     }
     @Bean
-    public CommandLineRunner commandLineRunner(AccountDAO theAccountDAO, MembershipDAO theMembershipDAO) {
+    public CommandLineRunner commandLineRunner(AccountDAO theAccountDAO, MembershipDAO theMembershipDAO, TrafficFortuneService theTrafficFortuneService) {
         return runner -> {
-            demoTheAfterAdvice(theAccountDAO);
+            demoTheAroundAdvice(theTrafficFortuneService);
         };
     }
 
+    private void demoTheAroundAdvice(TrafficFortuneService theTrafficFortuneService) {
+        System.out.println("\nMain program: demoTheAroundAdvice");
+
+        System.out.println("Calling getFortune()");
+
+        String data = theTrafficFortuneService.getFortune();
+
+        System.out.println("\nMy fortune is: " + data);
+
+        System.out.println("Finished");
+    }
 
 
     private void demoTheAfterAdvice(AccountDAO theAccountDAO) {
