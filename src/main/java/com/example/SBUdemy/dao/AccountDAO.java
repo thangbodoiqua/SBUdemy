@@ -2,7 +2,12 @@ package com.example.SBUdemy.dao;
 
 import com.example.SBUdemy.Account;
 
+import java.util.List;
+
 public interface AccountDAO {
+
+    List<Account> findAccounts();
+
     void addAccount(Account theAccount, boolean vipFlag);
 
     boolean doWork();

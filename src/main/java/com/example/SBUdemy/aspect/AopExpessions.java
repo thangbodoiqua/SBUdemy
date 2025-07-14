@@ -5,10 +5,12 @@ import org.aspectj.lang.annotation.Pointcut;
 
 @Aspect
 public class AopExpessions {
-    @Pointcut("execution( * com.example.SBUdemy.dao.*.*(..))") public void forDAOPackage() {};
+    @Pointcut("execution( * com.example.SBUdemy.dao.*.*(..))")
+    public void forDAOPackage() {};
 
     @Pointcut("execution( * com.example.SBUdemy.dao.*.get*(..))")
     public void getter() {};
+
     @Pointcut("execution( * com.example.SBUdemy.dao.*.set*(..))")
     public void setter() {};
 
