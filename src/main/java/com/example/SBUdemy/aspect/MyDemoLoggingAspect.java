@@ -21,13 +21,20 @@ public class MyDemoLoggingAspect {
     ) throws Throwable {
         String method = pjp.getSignature().toShortString();
 
-        System.out.println("\n==> Executing @After (finally) on method: " + method);
+        System.out.println("\n==> Executing @Around on method: " + method);
 
-        long begin = System.currentTimeMillis();
+//        long begin = System.currentTimeMillis();
+        long begin = System.nanoTime();
+        Object result = null;
+        try {
+            result = pjp.proceed();
+        }catch (Exception e) {
+            System.out.println(e.getMessage());
+            result = "Major accident! But safed";
+        }
 
-        Object result = pjp.proceed();
-
-        long end = System.currentTimeMillis();
+//        long end = System.currentTimeMillis();
+        long end = System.nanoTime();
         long duration = end - begin;
         System.out.println("\n==> Duration: " + duration);
 
