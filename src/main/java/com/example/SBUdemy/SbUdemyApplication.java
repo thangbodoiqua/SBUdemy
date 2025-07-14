@@ -20,8 +20,20 @@ public class SbUdemyApplication {
     @Bean
     public CommandLineRunner commandLineRunner(AccountDAO theAccountDAO, MembershipDAO theMembershipDAO, TrafficFortuneService theTrafficFortuneService) {
         return runner -> {
-            demoTheAroundAdviceHandleException(theTrafficFortuneService);
+            demoTheAroundAdviceRethrowException(theTrafficFortuneService);
         };
+    }
+
+    private void demoTheAroundAdviceRethrowException(TrafficFortuneService theTrafficFortuneService) {
+        System.out.println("\nMain program: demoTheAroundAdviceRethrowException");
+
+        System.out.println("Calling getFortune()");
+        boolean tripWire = true;
+        String data = theTrafficFortuneService.getFortune(tripWire);
+
+        System.out.println("\nMy fortune is: " + data);
+
+        System.out.println("Finished");
     }
 
     private void demoTheAroundAdviceHandleException(TrafficFortuneService theTrafficFortuneService) {

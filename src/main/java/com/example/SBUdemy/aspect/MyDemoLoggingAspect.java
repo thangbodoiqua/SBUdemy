@@ -30,7 +30,8 @@ public class MyDemoLoggingAspect {
             result = pjp.proceed();
         }catch (Exception e) {
             System.out.println(e.getMessage());
-            result = "Major accident! But safed";
+
+            throw e;
         }
 
 //        long end = System.currentTimeMillis();
