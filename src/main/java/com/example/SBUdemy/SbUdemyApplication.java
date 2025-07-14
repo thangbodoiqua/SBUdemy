@@ -19,8 +19,28 @@ public class SbUdemyApplication {
     @Bean
     public CommandLineRunner commandLineRunner(AccountDAO theAccountDAO, MembershipDAO theMembershipDAO) {
         return runner -> {
-            demoTheAfterThrowingAdvice(theAccountDAO);
+            demoTheAfterAdvice(theAccountDAO);
         };
+    }
+
+
+
+    private void demoTheAfterAdvice(AccountDAO theAccountDAO) {
+        List<Account> theAccounts = null;
+
+        try{
+            boolean tripWire = true;
+
+            theAccounts = theAccountDAO.findAccounts(tripWire);
+
+        }catch (Exception exc){
+            System.out.println("\n\nMain Program: ... caught exception" + exc);
+        }
+
+        System.out.println("\n\nMain Program: demoTheAfterThrowingAdvice");
+        System.out.println("------------        ------------------------------------------------------------");
+        System.out.println(theAccounts);
+        System.out.println("\n");
     }
 
     private void demoTheAfterThrowingAdvice(AccountDAO theAccountDAO) {
@@ -28,7 +48,7 @@ public class SbUdemyApplication {
         List<Account> theAccounts = null;
 
         try{
-            boolean tripWire = true;
+            boolean tripWire = false;
 
             theAccounts = theAccountDAO.findAccounts(tripWire);
 

@@ -13,6 +13,12 @@ import org.springframework.stereotype.Component;
 @Component
 @Order(2)
 public class MyDemoLoggingAspect {
+    @After("execution(* com.example.SBUdemy.dao.AccountDAO.findAccounts(..))")
+    public void afterFinallyAccountsAdvice(JoinPoint theJoinPoint) {
+        String method = theJoinPoint.getSignature().toShortString();
+
+        System.out.println("\n==> Executing @After (finally) on method: " + method);
+    }
 
     @AfterThrowing(
             pointcut = "execution(* com.example.SBUdemy.dao.AccountDAO.findAccounts(..))",
